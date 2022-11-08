@@ -7,7 +7,6 @@ import { IJobListData } from "../../interfaces/IJobListData";
 
 import JoblistItem from "./JoblistItem/JoblistItem";
 import Switcher from "../Switcher/Switcher";
-import GoogleAPI from "../../services/GoogleAPI/GoogleAPI";
 
 const JobList : FC = () => {
 

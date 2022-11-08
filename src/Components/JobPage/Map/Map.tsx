@@ -17,7 +17,10 @@ const Map : FC<IMapProps>  = ({address,email,cords,phone}) => {
     
     return(
         <>
-            {(!isLoaded) ? <div>No match Address</div> : <div className="max-[1024px]:mb-[27px] relative"><GglMap phone = {phone} email = {email} address={address} cords = {cords}/></div>}
+            {(!isLoaded) ? <div>No match Address</div> : 
+            <div className="max-[1024px]:mb-[27px] relative">
+                <GglMap phone = {phone} email = {email} address={address} cords = {cords}/>
+            </div>}
         </>
     )
 }
