@@ -8,7 +8,7 @@ import { IGglMapProps } from '../../../interfaces/IGglMapProps';
 
 const Map : FC<IMapProps>  = ({address,email,cords,phone}) => {
 
-    const { isLoaded } = useLoadScript({googleMapsApiKey : process.env.REACT_APP_GOOGLE_KEY});
+    const { isLoaded } = useLoadScript({googleMapsApiKey : 'AIzaSyDxJROmbTUbv1pEPlIzS1XX9XagqXlUzxI'});
     
     return(
         <>
