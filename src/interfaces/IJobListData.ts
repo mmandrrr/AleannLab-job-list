@@ -3,7 +3,7 @@ export interface IJobListData {
     address : string,
     id : string,
     title : string,
-    pictures : Array<any>,
+    pictures : Array<string>,
     updatedAt : string,
     location : {
         lat : string,

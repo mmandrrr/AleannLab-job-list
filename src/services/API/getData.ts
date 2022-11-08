@@ -1,4 +1,4 @@
- class GetData {
+class GetData {
     _key = 'wm3gg940gy0xek1ld98uaizhz83c6rh2sir9f9fu'
 
     getData = async (url : string,key : string = this._key) : Promise<any> => {
