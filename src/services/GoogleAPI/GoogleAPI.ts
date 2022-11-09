@@ -1,9 +1,12 @@
 class GoogleAPI {
-    _key = process.env.REACT_APP_GOOGLE_KEY 
-    url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=9.804124,147.139488&key='
+    _key : string | undefined = process.env.REACT_APP_GOOGLE_KEY 
 
-    getLocation = async (url = this.url,key = this._key) => {
+    getLocation = async (url : string ,key = this._key) => {
         const response = await fetch(`${url}${key}`)
+
+        if(!response.ok) {
+            throw new Error(`Couldn't fetch ${url}`);
+        }
 
         return await response.json()
     }

@@ -3,42 +3,40 @@ import {Link} from 'react-router-dom';
 
 import { IJobItemProps } from '../../../interfaces/IJobItemProps';
 
-import GetData from '../../../services/API/getData';
-
+// import GetData from '../../../services/API/getData';
+import GoogleAPI from '../../../services/GoogleAPI/GoogleAPI';
 
 import stars from '../../../assets/5 star Rating Big.svg';
 import save from '../../../assets/save.svg';
 import locationIcon from '../../../assets/Location.svg';
 
 interface ICity {
-    address : {
-        City : string
-        CntryName : string
-    }
+    results : [{formatted_address : string}]
 }
 
 const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
 
     const time : number = Math.ceil(((Date.now() - Date.parse(date)) / 86400000)),
           picture : string = pic[0],
-          getData : GetData = new GetData(),
-          [city, setCity] = useState<ICity>(({
-                                                address : { 
-                                                    City : '', 
-                                                    CntryName : ''}
-                                                }));
+          getData : GoogleAPI = new GoogleAPI(),
+          [city, setCity] = useState<ICity>(({results : [{formatted_address : ''}]}));
 
-    let cityPlusCountry : string = '';
+    let Country : string | string[] = '';
+    let City : string | string[] = '';
 
     useEffect(() : void => {
-        getData.getData(`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&featureTypes=PointAddress&preferredLabelValues=&location=${location.lat}%2C${location.long}`)
+        getData.getLocation(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.long}&key=`)
                 .then(data => setCity(data));
     },[])
 
-    if(city.address) {
-        cityPlusCountry = `${city.address.City}, ${city.address.CntryName}`
+    if(city) {
+        Country = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 1];
+        City = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 2];
     }
 
+    
+    console.log(city.results[0].formatted_address);
+    
     return(
         <div 
             className="max-[400px]:pt-[60px] max-[568px]:pt-[44px] max-[568px]:pb-[27px] max-[568px]:px-[16px] max-[568px]:relative max-[568px]:gap-[19px] m-auto p-[24px] bg-white shadow-jobItem rounded-[8px] flex gap-[26px] mb-[8px] max-[400px]:w-[calc(290px+90*((100vw-320px)/(400-320)))] w-[calc(386.5px+1013.5*((100vw-400px)/(1920-400)))]"
@@ -54,7 +52,7 @@ const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
                 </Link>
                 <div className="tracking-[0.23619px] text-[#878D9D]">Department name •  {name}</div>
                 <div className="flex gap-[11px] tracking-[0.23619px] text-[#878D9D]">
-                    <img src={locationIcon} alt="location" />{city.address ? cityPlusCountry : "Location didn't found"}
+                    <img src={locationIcon} alt="location" />{City && Country ? `${City} ${Country}` : "Location didn't found"}
                 </div>
             </div>
             <div className="max-[400px]:w-[calc(164px+80*((100vw-320px)/(400-320)))] max-[400px]:flex-col max-[400px]:items-end max-[400px]:gap-y-[10px] max-[568px]:w-[calc(251.5px+111*((100vw-400px)/(568-400)))] max-[568px]:justify-between max-[568px]:absolute max-[568px]:top-0 max-[568px]:right-0 max-[568px]:mt-[13px] max-[568px]:mr-[16px] flex flex-wrap gap-x-[32px] tracking-[0.23619px] text-[#878D9D] leading-[25px]">
