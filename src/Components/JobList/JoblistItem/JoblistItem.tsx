@@ -22,22 +22,24 @@ const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
     const time : number = Math.ceil(((Date.now() - Date.parse(date)) / 86400000)),
           picture : string = pic[0],
           getData : GoogleAPI = new GoogleAPI(),
-          [city, setCity] = useState<ICity>(({results : [{formatted_address : ''}]}));
-        //   [town,setTown] = useState<string>(''),
-        //   [country,setCountry] = useState<string>('');
-
-    let town : string = '',
-        country : string = '';
+          [city, setCity] = useState<ICity>(({results : [{formatted_address : ''}]})),
+          [town,setTown] = useState<string>(''),
+          [country,setCountry] = useState<string>('');
 
     useEffect(() : void => {
         getData.getLocation(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.long}&key=`)
                 .then(data => setCity(data));
     },[])
 
-    if(city) {
-        town = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 1]
-        country = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 2]
-    }
+    useEffect(() => {
+        if(city.results[0].formatted_address) {
+            setCountry(city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 1]) 
+            setTown(city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 2])
+        }
+    },[city])
+
+    console.log(city.results);
+    
     
     return(
         <div 
