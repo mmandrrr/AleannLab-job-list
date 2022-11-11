@@ -39,6 +39,9 @@ const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
         country = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 2]
     } 
 
+    console.log(city.results[0]);
+    
+
     return(
         <div 
             className="max-[400px]:pt-[60px] max-[568px]:pt-[44px] max-[568px]:pb-[27px] max-[568px]:px-[16px] max-[568px]:relative max-[568px]:gap-[19px] m-auto p-[24px] bg-white shadow-jobItem rounded-[8px] flex gap-[26px] mb-[8px] max-[400px]:w-[calc(290px+90*((100vw-320px)/(400-320)))] w-[calc(386.5px+1013.5*((100vw-400px)/(1920-400)))]"
