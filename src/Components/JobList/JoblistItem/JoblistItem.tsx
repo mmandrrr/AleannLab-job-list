@@ -34,7 +34,6 @@ const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
     },[])
 
     useEffect(() => {
-        console.log(city);
         if(city.results[0].formatted_address.length >= 1) {
             setTown(city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 2])
             setCountry(city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 1])
