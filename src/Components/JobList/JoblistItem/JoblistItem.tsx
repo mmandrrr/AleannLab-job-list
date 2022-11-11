@@ -26,18 +26,18 @@ const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
           getData : GoogleAPI = new GoogleAPI(),
           [city, setCity] = useState<ICity>(({results : [{formatted_address : ''}]}));
 
-    let Country : string | ICity = '';
-    let City : string | ICity = '';
+    let town : string | ICity = '';
+    let country : string | ICity = '';
 
     useEffect(() : void => {
         getData.getLocation(`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&featureTypes=PointAddress&preferredLabelValues=&location=${location.lat}%2C${location.long}`)
                 .then(data => setCity(data));
     },[])
 
-    if(city) {
+    if(city.results) {
         town = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 1]
         country = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 2]
-    }
+    } 
 
     
     console.log(city);
@@ -57,7 +57,7 @@ const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
                 </Link>
                 <div className="tracking-[0.23619px] text-[#878D9D]">Department name •  {name}</div>
                 <div className="flex gap-[11px] tracking-[0.23619px] text-[#878D9D]">
-                    <img src={locationIcon} alt="location" />{City && Country ? `${City} ${Country}` : "Location didn't found"}
+                    <img src={locationIcon} alt="location" />{town && country ? `${town} ${country}` : "Location didn't found"}
                 </div>
             </div>
             <div className="max-[400px]:w-[calc(164px+80*((100vw-320px)/(400-320)))] max-[400px]:flex-col max-[400px]:items-end max-[400px]:gap-y-[10px] max-[568px]:w-[calc(251.5px+111*((100vw-400px)/(568-400)))] max-[568px]:justify-between max-[568px]:absolute max-[568px]:top-0 max-[568px]:right-0 max-[568px]:mt-[13px] max-[568px]:mr-[16px] flex flex-wrap gap-x-[32px] tracking-[0.23619px] text-[#878D9D] leading-[25px]">

@@ -124,12 +124,12 @@ const PageContainer : FC<IPageContainerProps>  = ({
                     </div>
                 </div>
             </div>
-            {/* <Map
+            <Map
                 cords = {location}
                 phone = {phone}
                 address = {address}
                 email = {email}
-             /> */}
+             />
         </div>
     )
 }
