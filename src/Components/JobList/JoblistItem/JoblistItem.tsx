@@ -34,7 +34,7 @@ const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
                 .then(data => setCity(data));
     },[])
 
-    if(city.results[0].formatted_address) {
+    if(city) {
         town = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 1]
         country = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 2]
     }
