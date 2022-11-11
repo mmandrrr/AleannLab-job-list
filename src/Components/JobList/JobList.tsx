@@ -1,10 +1,14 @@
+// Modules
 import React, { FC, ReactElement, useEffect, useState } from "react";
 
+// Services
 import GetData from "../../services/API/getData";
 import ListGen from "../../services/ListGen/ListGen";
 
+// Interfaces
 import { IJobListData } from "../../interfaces/IJobListData";
 
+// Components
 import JoblistItem from "./JoblistItem/JoblistItem";
 import Switcher from "../Switcher/Switcher";
 

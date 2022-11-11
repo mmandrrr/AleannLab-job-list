@@ -25,6 +25,7 @@ const Map : FC<IMapProps>  = ({address,email,cords,phone}) => {
     )
 }
 
+
 const GglMap : FC<IGglMapProps> = ({cords,phone,address,email}) => {
     const {lat, long} = cords,
           center = {lat : +lat + 10, lng : +long + 10};

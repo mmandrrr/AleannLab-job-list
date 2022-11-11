@@ -1,10 +1,13 @@
+// Modules
 import {FC, useState, useEffect} from 'react';
 
+// Interfaces
 import { ISwitcherProps } from '../../interfaces/ISwitcherProps';
-// import { ISwitcher } from '../../interfaces/ISwitcher';
 
+// Services
 import SwitcherGen from '../../services/SwitcherGen/SwitcherGen';
 
+// Assets
 import arrowLeft from '../../assets/Arrow left.svg'
 import arrowRight from '../../assets/Arrow right.svg'
 
@@ -49,6 +52,9 @@ const Switcher : FC<ISwitcherProps> = ({arr,slideCount,increaseSlide,decreaseSli
             createList();
         }
     },[switcherArr])
+
+    console.log(switcherArr);
+    
 
     return(
         <div className="mt-[49px] mb-[60px] flex items-center shadow-jobItem rounded-[10.4px] bg-white p-[17px] h-[52px] max-w-[515px]">

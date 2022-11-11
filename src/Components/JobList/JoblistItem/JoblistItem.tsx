@@ -1,11 +1,14 @@
+// Modules
 import { useEffect, useState, FC } from 'react';
 import {Link} from 'react-router-dom';
 
+// Interface
 import { IJobItemProps } from '../../../interfaces/IJobItemProps';
 
-// import GetData from '../../../services/API/getData';
+// API Service
 import GoogleAPI from '../../../services/GoogleAPI/GoogleAPI';
 
+// Assets 
 import stars from '../../../assets/5 star Rating Big.svg';
 import save from '../../../assets/save.svg';
 import locationIcon from '../../../assets/Location.svg';
@@ -19,23 +22,21 @@ const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
     const time : number = Math.ceil(((Date.now() - Date.parse(date)) / 86400000)),
           picture : string = pic[0],
           getData : GoogleAPI = new GoogleAPI(),
-          [city, setCity] = useState<ICity>(({results : [{formatted_address : ''}]}));
-
-    let Country : string | string[] = '';
-    let City : string | string[] = '';
+          [city, setCity] = useState<ICity>(({results : [{formatted_address : ''}]})),
+          [town,setTown] = useState<string>(''),
+          [country,setCountry] = useState<string>('');
 
     useEffect(() : void => {
         getData.getLocation(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.long}&key=`)
                 .then(data => setCity(data));
     },[])
 
-    if(city) {
-        Country = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 1];
-        City = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 2];
-    }
-
-    
-    console.log(city.results[0].formatted_address);
+    useEffect(() => {
+        if(city) {
+            setCountry(city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 1]) 
+            setTown(city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 2])
+        }
+    },[city])
     
     return(
         <div 
@@ -52,7 +53,7 @@ const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
                 </Link>
                 <div className="tracking-[0.23619px] text-[#878D9D]">Department name •  {name}</div>
                 <div className="flex gap-[11px] tracking-[0.23619px] text-[#878D9D]">
-                    <img src={locationIcon} alt="location" />{City && Country ? `${City} ${Country}` : "Location didn't found"}
+                    <img src={locationIcon} alt="location" />{town && country ? `${town} ${country}` : "Location didn't found"}
                 </div>
             </div>
             <div className="max-[400px]:w-[calc(164px+80*((100vw-320px)/(400-320)))] max-[400px]:flex-col max-[400px]:items-end max-[400px]:gap-y-[10px] max-[568px]:w-[calc(251.5px+111*((100vw-400px)/(568-400)))] max-[568px]:justify-between max-[568px]:absolute max-[568px]:top-0 max-[568px]:right-0 max-[568px]:mt-[13px] max-[568px]:mr-[16px] flex flex-wrap gap-x-[32px] tracking-[0.23619px] text-[#878D9D] leading-[25px]">
