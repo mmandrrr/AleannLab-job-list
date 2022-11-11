@@ -30,6 +30,9 @@ const GglMap : FC<IGglMapProps> = ({cords,phone,address,email}) => {
     const {lat, long} = cords,
           center = {lat : +lat + 10, lng : +long + 10};
 
+    console.log(lat,long);
+    
+
     return(
         <>
             <h1 className="hidden font-bold text-[28px] leading-[34px] tracking-[0.413333px] text-[#3A4562] pb-[9px] mb-[15px] border-b-[1px] border-solid border-[rgba(58,69,98,0.13)] max-[1024px]:block">Contacts</h1> 
