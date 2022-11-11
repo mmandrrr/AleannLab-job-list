@@ -24,7 +24,7 @@ const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
     const time : number = Math.ceil(((Date.now() - Date.parse(date)) / 86400000)),
           picture : string = pic[0],
           getData : GoogleAPI = new GoogleAPI(),
-          [city, setCity] = useState<ICity>(({results : [{formatted_address : ''}]}));
+          [city, setCity] = useState<ICity>(({results : [{formatted_address : ' '}]}));
 
     let town : string | ICity = '';
     let country : string | ICity = '';
