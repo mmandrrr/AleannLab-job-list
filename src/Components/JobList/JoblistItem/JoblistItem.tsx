@@ -35,10 +35,8 @@ const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
     },[])
 
     if(city) {
-        Country = city;
-        // .results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 1]
-        City = city;
-        // .results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 2];
+        town = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 1]
+        country = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 2]
     }
 
     
