@@ -24,7 +24,7 @@ const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
     const time : number = Math.ceil(((Date.now() - Date.parse(date)) / 86400000)),
           picture : string = pic[0],
           getData : GoogleAPI = new GoogleAPI(),
-          [city, setCity] = useState<ICity>(({results : [{formatted_address : ' '}]})),
+          [city, setCity] = useState<ICity>(({results : [{formatted_address : ''}]})),
           [town, setTown] = useState<any>(''),
           [country, setCountry] = useState<any>('');
 
@@ -34,16 +34,15 @@ const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
     },[])
 
     useEffect(() => {
-        if(city.results) {
-            console.log(city.results[0]);
-            console.log(city.results == undefined);
+        if(city.results[0].formatted_address.length >= 1) {
+            console.log(city);
+            console.log(city.results);
+            console.log(city.results[0].formatted_address);
+            
             setTown(city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 2])
             setCountry(city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 1])
         }    
     },[city])
-
-    console.log(city.results);
-    
 
     return(
         <div 
