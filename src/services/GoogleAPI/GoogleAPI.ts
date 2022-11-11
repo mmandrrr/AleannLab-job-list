@@ -1,5 +1,5 @@
 class GoogleAPI {
-    _key : string = `${process.env.REACT_APP_GOOGLE_KEY}`;
+    _key : string = 'AIzaSyDxJROmbTUbv1pEPlIzS1XX9XagqXlUzxI';
 
     getLocation = async (url : string,key = this._key) => {
         const response = await fetch(`${url}${key}`)
