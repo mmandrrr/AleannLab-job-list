@@ -14,10 +14,9 @@ import save from '../../../assets/save.svg';
 import locationIcon from '../../../assets/Location.svg';
 
 interface ICity {
-    address : {
-        City : string
-        CntryName : string
-    }
+    results : [{
+        formatted_address : string
+    }]
 }
 
 const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
@@ -27,21 +26,23 @@ const JoblistItem : FC<IJobItemProps> = ({name,title,pic,date,location,id}) => {
           getData : GoogleAPI = new GoogleAPI(),
           [city, setCity] = useState<ICity>(({results : [{formatted_address : ''}]}));
 
-    let Country : string | string[] = '';
-    let City : string | string[] = '';
+    let Country : string | ICity = '';
+    let City : string | ICity = '';
 
     useEffect(() : void => {
-        getData.getData(`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&featureTypes=PointAddress&preferredLabelValues=&location=${location.lat}%2C${location.long}`)
+        getData.getLocation(`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&featureTypes=PointAddress&preferredLabelValues=&location=${location.lat}%2C${location.long}`)
                 .then(data => setCity(data));
     },[])
 
     if(city) {
-        Country = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 1];
-        City = city.results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 2];
+        Country = city;
+        // .results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 1]
+        City = city;
+        // .results[0].formatted_address.split(' ')[city.results[0].formatted_address.split(' ').length - 2];
     }
 
     
-    console.log(city.results[0].formatted_address);
+    console.log(city);
     
     return(
         <div 
