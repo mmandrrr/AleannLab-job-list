@@ -53,9 +53,6 @@ const Switcher : FC<ISwitcherProps> = ({arr,slideCount,increaseSlide,decreaseSli
         }
     },[switcherArr])
 
-    console.log(switcherArr);
-    
-
     return(
         <div className="mt-[49px] mb-[60px] flex items-center shadow-jobItem rounded-[10.4px] bg-white p-[17px] h-[52px] max-w-[515px]">
             <button className="max-[400px]:pr-[10px] h-[32px] bg-inherit flex justify-center items-center border-r-[1.3px] border-[#DEE3EF] border-solid pr-[30px]">
